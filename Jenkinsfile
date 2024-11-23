@@ -2,27 +2,52 @@ pipeline {
     agent any
 
     tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "Maven 3.6.3"
+        maven 'MAVEN' // Укажите имя установленного Maven в Jenkins
+        jdk 'JDK' // Укажите имя установленного JDK в Jenkins
     }
 
     stages {
+        stage('Clone') {
+            steps {
+                // Клонирование репозитория
+                git 'https://github.com/ваш_репозиторий.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo "build start"
-                // Get some code from a GitHub repository
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                // Сборка проекта
+                sh 'mvn clean package -DskipTests'
             }
+        }
 
+        stage('Test') {
+            steps {
+                // Запуск тестов
+                sh 'mvn test'
+            }
             post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
+                always {
+                    // Публикация отчетов о тестах
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
+        }
+
+        stage('Deliver') {
+            steps {
+                // Доставка артефактов или выполнение других действий
+                sh 'echo "Delivering artifacts..."'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Сборка прошла успешно!'
+        }
+        failure {
+            echo 'Сборка завершилась с ошибкой.'
         }
     }
 }
