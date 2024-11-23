@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/cat
-    username: catname
-    password: catpass
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: sonar
+    password: sonar
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
