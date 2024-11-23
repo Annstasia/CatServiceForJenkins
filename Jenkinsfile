@@ -10,8 +10,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Сборка проекта
-                env.JAVA_HOME="${tool 'JDK 21'}"
                 sh 'mvn clean package -DskipTests'
             }
         }
