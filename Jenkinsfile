@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.6.3' // Укажите имя установленного Maven в Jenkins
-        jdk 'JDK 21' // Укажите имя установленного JDK в Jenkins
+        maven 'Maven 3.6.3'
+        jdk 'JDK 21'
     }
 
     stages {
