@@ -7,7 +7,14 @@ pipeline {
     }
 
     stages {
-
+        stage('Check Environment') {
+            steps {
+                sh 'echo "JAVA_HOME=$JAVA_HOME"'
+                sh 'echo "PATH=$PATH"'
+                sh 'java -version || echo "Java not found"'
+                sh 'mvn -version || echo "Maven not found"'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
