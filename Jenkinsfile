@@ -2,17 +2,11 @@ pipeline {
     agent any
 
     tools {
-        maven 'MAVEN' // Укажите имя установленного Maven в Jenkins
-        jdk 'JDK' // Укажите имя установленного JDK в Jenkins
+        maven 'Maven 3.6.3' // Укажите имя установленного Maven в Jenkins
+        jdk 'JDK 21' // Укажите имя установленного JDK в Jenkins
     }
 
     stages {
-        stage('Clone') {
-            steps {
-                // Клонирование репозитория
-                git 'https://github.com/ваш_репозиторий.git'
-            }
-        }
 
         stage('Build') {
             steps {
