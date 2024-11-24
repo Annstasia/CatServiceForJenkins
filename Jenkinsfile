@@ -38,7 +38,7 @@ pipeline {
 
         stage('Static Analysis') {
             steps {
-                withSonarQubeEnv("SonarQube1") {
+                withSonarQubeEnv("SonarServer1") {
                     script {
                         sh 'mvn clean package sonar:sonar -P sonar'
                     }
