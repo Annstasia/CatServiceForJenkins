@@ -14,7 +14,6 @@ pipeline {
                 sh 'java -version || echo "Java not found"'
                 sh 'mvn -version || echo "Maven not found"'
                 sh 'docker version'
-                sh 'docker info'
                 sh 'docker compose version'
             }
         }
