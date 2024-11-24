@@ -36,29 +36,6 @@ pipeline {
             }
         }
 
-        stage('Sonar') {
-            steps {
-                // Запуск тестов
-                sh 'rm -rf allure-results/* allure-report/*'
-                sh 'mvn test -P allure'
-            }
-            post {
-                always {
-                    // Публикация отчетов о тестах
-                    allure includeProperties:
-                     false,
-                     jdk: '',
-                     results: [[path: 'target/allure-results']]
-                }
-            }
-        }
-
-        stage('Deliver') {
-            steps {
-                // Доставка артефактов или выполнение других действий
-                sh 'echo "Delivering artifacts..."'
-            }
-        }
         stage('Static Analysis') {
             steps {
                 withSonarQubeEnv("SonarQube1") {
@@ -82,7 +59,14 @@ pipeline {
                 echo 'Quality Gate Passed'
             }
         }
+        stage('Deliver') {
+            steps {
+                // Доставка артефактов или выполнение других действий
+                sh 'echo "Delivering artifacts..."'
+            }
+        }
     }
+
 
     post {
         success {
