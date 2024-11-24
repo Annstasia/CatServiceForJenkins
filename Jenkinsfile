@@ -46,10 +46,9 @@ pipeline {
                 echo 'Static Analysis Completed'
             }
         }
-        stage('Deliver') {
+        stage('Deploy') {
             steps {
-                // Доставка артефактов или выполнение других действий
-                sh 'echo "Delivering artifacts..."'
+                sh 'docker compose up -d'
             }
         }
     }
