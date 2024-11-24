@@ -29,6 +29,10 @@ pipeline {
                 always {
                     // Публикация отчетов о тестах
                     junit 'target/surefire-reports/*.xml'
+                    allure includeProperties:
+                     false,
+                     jdk: '',
+                     results: [[path: 'target/surefire-reports/*.xml']]
                 }
             }
         }
