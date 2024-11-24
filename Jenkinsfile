@@ -32,7 +32,7 @@ pipeline {
                     allure includeProperties:
                      false,
                      jdk: '',
-                     results: [[path: 'target/surefire-reports/*.xml']]
+                     results: [[path: 'target/allure-results']]
                 }
             }
         }
