@@ -23,7 +23,23 @@ pipeline {
         stage('Test') {
             steps {
                 // Запуск тестов
-                sh 'mvn test'
+                sh 'mvn test -P allure'
+            }
+            post {
+                always {
+                    // Публикация отчетов о тестах
+                    allure includeProperties:
+                     false,
+                     jdk: '',
+                     results: [[path: 'target/allure-results']]
+                }
+            }
+        }
+
+        stage('Sonar') {
+            steps {
+                // Запуск тестов
+                sh 'mvn test -P allure'
             }
             post {
                 always {
@@ -40,6 +56,29 @@ pipeline {
             steps {
                 // Доставка артефактов или выполнение других действий
                 sh 'echo "Delivering artifacts..."'
+            }
+        }
+        stage('Static Analysis') {
+            steps {
+                withSonarQubeEnv("SonarQube1") {
+                    script {
+                        sh 'mvn clean package sonar:sonar -P sonar'
+                    }
+                }
+                echo 'Static Analysis Completed'
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    script {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                    }
+                }
+                echo 'Quality Gate Passed'
             }
         }
     }

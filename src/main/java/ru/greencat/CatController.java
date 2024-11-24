@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CatController {
     private final CatRepo catRepo;
+    private final CatLogic logic;
     @GetMapping("/get")
     public ResponseEntity<String> getCat() {
         CatCounter catCounter = catRepo.findAll().get(0);
-        catCounter.setCounter(catCounter.getCounter() + 1);
+        catCounter.setCounter(logic.logic(catCounter.getCounter()));
         catRepo.save(catCounter);
         return ResponseEntity.ok("Green cat: " + catCounter.counter);
     }
