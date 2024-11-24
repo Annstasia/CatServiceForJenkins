@@ -28,7 +28,6 @@ pipeline {
             post {
                 always {
                     // Публикация отчетов о тестах
-                    junit 'target/surefire-reports/*.xml'
                     allure includeProperties:
                      false,
                      jdk: '',
