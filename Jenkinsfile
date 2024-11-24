@@ -12,6 +12,9 @@ pipeline {
                 sh 'echo "PATH=$PATH"'
                 sh 'java -version || echo "Java not found"'
                 sh 'mvn -version || echo "Maven not found"'
+                sh 'docker version'
+                sh 'docker info'
+                sh 'docker compose version'
             }
         }
         stage('Build') {
