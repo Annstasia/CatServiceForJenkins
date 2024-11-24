@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         maven 'maven-3.6.3'
-        docker 'docker'
     }
 
     stages {
@@ -49,7 +48,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker-compose up -d'
             }
         }
     }
