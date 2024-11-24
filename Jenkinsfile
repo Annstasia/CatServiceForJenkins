@@ -39,6 +39,7 @@ pipeline {
         stage('Sonar') {
             steps {
                 // Запуск тестов
+                sh 'rm -rf allure-results/* allure-report/*
                 sh 'mvn test -P allure'
             }
             post {
