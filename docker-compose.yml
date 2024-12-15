@@ -3,7 +3,7 @@ version: "3.8"
 services:
   cat_db:
     image: postgres:15.2
-    container_name: db
+    container_name: cat_db
     environment:
       - POSTGRES_USER=catname
       - POSTGRES_PASSWORD=catpass
